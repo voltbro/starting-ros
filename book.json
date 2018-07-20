@@ -1,0 +1,14 @@
+{
+  "language": "ru",
+  "author": "Nikolay Slabuha",
+  "title": "Введение в ROS",
+  "links": {
+    "sidebar": {
+        "Братья Вольт (Voltbro)": "http://www.voltbro.com"
+    }
+  },
+  "pdf":{
+    "fontSize": 11
+  },
+  "plugins": ["hints"]
+}
