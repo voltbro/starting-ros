@@ -1,8 +1,10 @@
 # Table of contents
 
 * [Введение в ROS](README.md)
-* [Что такое ROS](chto-takoe-ros.md)
-* [Назначение ROS](zadachi-ros.md)
-* [Установка](ustanovka.md)
-* [Базовые понятия ROS](bazovye-ponyatiya-ros.md)
+* [Что такое ROS](ros-about.md)
+* [Назначение ROS](ros-task.md)
+* [Установка](install.md)
+* [Базовые понятия ROS](basics.md)
+* [Обмен сообщениями](messaging/README.md)
+  * [Работа с Topic](messaging/rabota-s-topic.md)
 
