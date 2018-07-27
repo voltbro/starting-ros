@@ -7,4 +7,5 @@
 * [Базовые понятия ROS](basics.md)
 * [Обмен сообщениями](messaging/README.md)
   * [Работа с Topic](messaging/rabota-s-topic.md)
+  * [Работа с Service](messaging/rabota-s-service.md)
 
