@@ -106,3 +106,55 @@ rosservice type Выводит тип сообщений используемм�
 rosservice uri  Выводит RPC URL сервиса
 ```
 
+Примеры использования `rosservice`
+
+#### rosservice call {#rosservice_call}
+
+Вызов сервиса `service_name` c аргументами `service-arg`
+
+```bash
+rosservice call /service_name service-args
+```
+
+Вызов сервиса `add_two_ints` из примеры выше, с аргументами 1 и 2
+
+```bash
+rosservice call /add_two_ints 1 2
+```
+
+Для сложных сообщений, аргументы с параметрами возможно писать в YAML синтаксисе например
+
+```bash
+rosservice call /add_two_ints "{x: 1, y: 2}"
+```
+
+Подробно об использовании YAML [http://wiki.ros.org/ROS/YAMLCommandLine](http://wiki.ros.org/ROS/YAMLCommandLine)
+
+#### rosservice list {#rosservice_list}
+
+```text
+rosservice list
+```
+
+Выводит список активных сервисов
+
+#### rosservice type {#rosservice_type}
+
+```text
+rosservice type /service_name 
+```
+
+Выводит тип обрабатываемого сообщения.
+
+```text
+$ rosservice type add_two_ints | rossrv show
+
+result:
+int64 a
+int64 b
+---
+int64 sum
+```
+
+Пример выводит описание типа сообщения для сервиса
+
