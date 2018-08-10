@@ -14,19 +14,20 @@
 
 В файле описания сервиса, первая часть \(до разделителя ---\) это описание сообщения запроса, далее описание сообщения ответа.
 
-Например 
+Например `srv/AddToInts.srv`
 
 ```text
-string str
----
-string str
+uint32 x
+uint32 y
+---
+uint32 sum
 ```
 
 При этом, имя файла, определит тип Сервиса `AddToInts.srv` означает тип сервиса AddToInt.
 
 ### Примеры работы на Python
 
-При использовании python на осонове файлов srv, создаються \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
+При использовании python на осонове файлов `srv`, создаются \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
 
 ```text
 my_package/srv/AddToInts.srv → my_package.srv.AddToInts
@@ -50,13 +51,15 @@ rospy.Service(name, service_class, handler)
 
 ```python
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-from beginner_tutorials.srv import *
 import rospy
 
+from ros_book_samples.srv import AddTwoInts, AddTwoIntsResponse
+
 def handle_add_two_ints(req):
-    print "Returning [%s + %s = %s]"%(req.a, req.b, (req.a + req.b))
-    return AddTwoIntsResponse(req.a + req.b)
+    print "Returning [%s + %s = %s]"%(req.x, req.y, (req.x + req.y))
+    return AddTwoIntsResponse(req.x + req.y)
 
 def add_two_ints_server():
     rospy.init_node('add_two_ints_server')
@@ -65,25 +68,30 @@ def add_two_ints_server():
     rospy.spin()
 
 if __name__ == "__main__":
-    add_two_ints_server()     
+    add_two_ints_server()
+
 ```
 
 При запросе сервиса по URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух числе.
 
-Пример клиента `add_two_ints_client.py`
+Пример клиента `src/add_two_ints_client.py`
 
 ```python
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import rospy
-from beginner_tutorials.srv import *
+
+from ros_book_samples.srv import AddTwoInts
 
 def add_two_ints_client(x, y):
+
     rospy.wait_for_service('add_two_ints')
     try:
         add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
-        resp1 = add_two_ints(x, y)
-        return resp1.sum
+        resp = add_two_ints(x, y)
+        return resp.sum
+
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
 
