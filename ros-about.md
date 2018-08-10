@@ -13,7 +13,7 @@
 ### Наиболее активные платформы
 
 | MSRDS10 | Microsoft Robotics Developer Studio, Microsoft - U.S. |
-| --- | --- | --- | --- | --- | --- |
+| :--- | :--- |
 | ERSP11 | Evolution Robotics Software Platform, Evolution Robotics - Europe |
 | ROS | Robot Operating System, Open Robotics12 - U.S. |
 | OpenRTM | National Institute of Adv. Industrial Science and Technology \(AIST\) - Japan |
