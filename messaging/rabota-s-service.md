@@ -47,7 +47,7 @@ rospy.Service(name, service_class, handler)
 * `service_class` тип обрабатываеммых сообщений \(должно совпадать с именем файлы `.srv`\)
 * `handler` функция обработчик запроса
 
-Пример сервера `add_two_ints_server.py`
+Пример сервера `src/add_two_ints_server.py`
 
 ```python
 #!/usr/bin/env python
@@ -99,7 +99,56 @@ if __name__ == "__main__":
     print add_two_ints_client(10, 22)
 ```
 
+Запуск примеров возможен или через прямой запуск скриптов python 
 
+```text
+python src/ros_book_samples/src/add_two_ints_server.py
+python src/ros_book_samples/src/add_two_ints_client.py
+```
+
+или через запук `rosrun` для этого .py файли должны быть с флагом исполнения \(`chmode 777`\)
+
+```bash
+rosrun ros_book_samples add_two_ints_server.py
+rosrun ros_book_samples add_two_ints_client.py
+```
+
+При запуске клиента и сервера, в консоле можно увидеть
+
+```bash
+Для сервера
+Ready to add two ints.
+Returning [10 + 22 = 32]
+
+Для клиента
+rosrun ros_book_samples add_two_ints_client.py
+32
+```
+
+### Использование Service в новых пакета
+
+Для использования `Service` в новых пакетах, необходимо удостовериться что установленны все зависимости и внесены изменения в конфигурацию `make`.
+
+В файле `CMakeLists.txt` необходимо внести изменения
+
+```text
+# Проверяем что пакет message_generation подключен
+find_package(catkin REQUIRED
+    COMPONENTS message_generation)
+ 
+# Declare the service files to be built
+add_service_files(FILES
+    AddTwoInts.srv
+)  
+
+# Actually generate the language-specific message and service files
+generate_messages(DEPENDENCIES std_msgs sensor_msgs)
+  
+# Declare that this catkin package's runtime dependencies
+catkin_package(
+    CATKIN_DEPENDS message_runtime std_msgs
+)     
+```
 
 ### Консольная утилита rosservice
 
