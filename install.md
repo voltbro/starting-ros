@@ -119,5 +119,5 @@ roscore
 
 ![](.gitbook/assets/roscore_run.png)
 
-
+Для остановки `roscore` несобходимо нажать Ctrl+C 
 
