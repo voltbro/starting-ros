@@ -82,21 +82,49 @@ Install space: /home/cola/catkin_ws/install
 
 ### Настройка рабочего окружения ros\_book\_samples
 
-По умолчанию, пакеты `ROS` при установке через `apt-get` устанавливаются в директорию `/opt/ros/kinetic/share` собранный пакет `ros_book_smaples` через `catkin_make` по умолчанию не инсталируется в эту директорию.
+По умолчанию, пакеты `ROS` при установке через `apt-get` устанавливаются в директорию `/opt/ros/melodic/share` собранный пакет `ros_book_smaples` через `catkin_make` по умолчанию не инсталируется в эту директорию.
 
-Для удобства работы, проще всего добавить еще одну директорию, где `ROS` должен искать пакеты.
+Для удобства работы, проще всего добавить еще одну директорию, где `ROS` должен искать установленные пакеты. Тогда установленные пакеты будут находиться в обычном для них месте, а наши пакеты будут находиться в домашней директории пользователя в директории `~/catkin_ws/src/`.
 
-Для `bash`
+Если вы используете `bash`
 
 ```bash
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+echo "source /home/`whoami`/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-source /home/cola/catkin\_ws/devel/setup.zsh
+Если `zsh`
 
 ```bash
-echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
+echo "source /home/`whoami`/catkin_ws/devel/setup.zsh" >> ~/.zshrc
 source ~/.zshrc
 ```
+
+Команда `whoami`автоматический подставит в строчку конфигурации имя текущего пользователя в конфигурацию командного интерпритатора.
+
+Для проверки настройки новой директории для пакетов `ROS` можно выполнить команду 
+
+```bash
+roscd ros_book_samples
+```
+
+После этого вы должны переместиться в директорию установленного пакета `/home/cola/catkin_ws/src/ros_book_samples`
+
+Команда 
+
+```text
+roscd ros
+```
+
+Должна переместить вас в директорию `/opt/ros/melodic/share/ros`
+
+Отобразить текущий список директорий для пакетов можно командой
+
+```text
+echo $ROS_PACKAGE_PATH
+
+/home/cola/catkin_ws/src:/opt/ros/melodic/share
+```
+
+
 
