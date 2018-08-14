@@ -25,36 +25,48 @@ pub.publish(std_msgs.msg.String("foo"))
 * `std_msgs.msg.String` Тип передаваемого сообщения
 * `"foo"`переданное сообщение
 
-Полный пример кода:
+Полный пример кода Издателя \(publisher\) `src/hello_topic_publisher.py` :
 
 ```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import rospy
 from std_msgs.msg import String
 
-pub = rospy.Publisher('topic_name', String, queue_size=10)
-rospy.init_node('node_name')
+pub = rospy.Publisher('hello', String, queue_size=10)
+rospy.init_node('hello_topic_publisher')
 r = rospy.Rate(10) # 10hz
+
 while not rospy.is_shutdown():
-   pub.publish("hello world")
-   r.sleep()
+    pub.publish("Hello World")
+    r.sleep()
+
 ```
 
 Для приема сообщениями необходимо воспользоваться **rospy.Subscriber Code API** [http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html](http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html)
 
-Пример реализации подписчика
+Пример реализации подписчика \(subscriber\) `src/hello_topic_subscriber.py`
 
 ```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import rospy
 from std_msgs.msg import String
 
 def callback(data):
     rospy.loginfo("I heard %s",data.data)
-    
-def listener():
-    rospy.init_node('node_name')
-    rospy.Subscriber("chatter", String, callback)
+
+def subscriber():
+    rospy.init_node('hello_topic_subscriber')
+    rospy.Subscriber("hello", String, callback)
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
+
+if __name__ == '__main__':
+    subscriber()
+
 ```
 
 Более подробную информацию по работе с топиками на Python можно посмотреть на Wiki странице ROS [http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers](http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers)
