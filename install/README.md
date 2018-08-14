@@ -117,7 +117,7 @@ roscore
 
 Если ROS установлена верно, то мы увидим приблизительно такое сообщение при запуске:
 
-![](.gitbook/assets/roscore_run.png)
+![](../.gitbook/assets/roscore_run.png)
 
 Для остановки `roscore` несобходимо нажать Ctrl+C 
 
