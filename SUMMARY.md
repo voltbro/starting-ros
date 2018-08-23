@@ -15,5 +15,7 @@
   * [Стандарты ROS](developing/standarty-ros.md)
   * [Создание пакета](developing/new-package.md)
   * [Создание и запуск первой программы](developing/first-run.md)
-  * [Установка пакетов утилитой apt-get](developing/ustanovka-paketov-utilitoi-apt-get.md)
+* [Администрирование ROS](administrirovanie-ros/README.md)
+  * [Roslaunch, управление запуском](administrirovanie-ros/roslaunch.md)
+  * [Установка пакетов утилитой apt-get](administrirovanie-ros/ustanovka-paketov-utilitoi-apt-get.md)
 
