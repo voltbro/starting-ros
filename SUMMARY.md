@@ -17,5 +17,4 @@
   * [Создание и запуск первой программы](developing/first-run.md)
 * [Администрирование ROS](administrirovanie-ros/README.md)
   * [Roslaunch, управление запуском](administrirovanie-ros/roslaunch.md)
-  * [Установка пакетов утилитой apt-get](administrirovanie-ros/apt-get.md)
 
