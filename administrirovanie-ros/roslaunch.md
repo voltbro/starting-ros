@@ -55,7 +55,7 @@ process[topic_subscriber2-4]: started with pid [24978]
 
 ```
 
-Если добавить параметр «--screen», информация о работе запущенных программ будет отображенна на экране текущего терминала.
+Если добавить параметр `--screen`, информация о работе запущенных программ будет отображенна на экране текущего терминала.
 
 Как мы видим, запущенно 4 процесса с разными `pid.` Также мы можем увидеть список запущенных нод
 
@@ -130,7 +130,108 @@ Type: std_msgs/String
 Subscribers:  * /ns2/topic_subscriber (http://cola:35017/)
 ```
 
-### Установка переменных окружения
+### Установка переменных окружения при запуске
 
+Очень часто, возаникает необходимость конфигурировать исполняемые файлы в момент их запуска. Например нужно имень возможность изменять скорость `Serial` порта и его адресс. Каждый раз именять эти переменные в коде не удобно и очень долго.
 
+Чтобы решить данну проблему, мы можем использовать возможность передавать конфигурационные переменные в выполняемые скрипти через `.launch` файлы
+
+Рассмотрим пример ниже
+
+```markup
+<launch>
+    <node pkg="test_package" type="test_params.py" name="test_params" output="log" respawn="true">
+        <param name="port" value="/dev/ttyS0"/>
+        <param name="boud" value="57600"/>
+    </node>
+</launch>
+
+```
+
+Мы видим что в ветке `node` добавились элементы `param` с настройми. Открывая такой файл, сразу видно, какие параметры возможно конфигурировать и их значения по умолчанию. 
+
+Для того, чтобы исполняемый файлы смогли обрабатывать эти параметры, необходимо добавить для них специальный код. Это не сложно, и для `python` может выглядеть так
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import rospy
+
+rospy.init_node('test_params')
+r = rospy.Rate(10) # 10hz
+port = rospy.get_param('~port','/dev/ttyS0')
+
+while not rospy.is_shutdown():
+    print(port)
+    r.sleep()
+```
+
+Вторым параметром в фнкции `get_param` указывается значение по умолчанию, если параметр не определен в `.launch` файле.
+
+Параметры возможно передавать при запуске через `rosrun` 
+
+```text
+rosrun test_package test_params.py _port:=/dev/ttyS1
+```
+
+Еща одна удобная практика, для работы с параметрами, это перенос настроек в самое начала файла в блок переменных окружения. Это можно сделать использую элемент `env` а далее обращение к этим переменным окружения в формате `$(arg env_name)`
+
+```markup
+<launch>
+    <arg name="device" default="/dev/ttyS0"/>
+    <arg name="boud" default="57600"/>
+
+    <node pkg="test_package" type="test_params.py" name="test_package" output="log" respawn="true">
+        <param name="port" value="$(arg device)"/>
+        <param name="boud" value="$(arg boud)"/>
+    </node>
+</launch>
+```
+
+Эта практика позволяет не листать большие файлы и всегда иметь перед глазами самые важные настройки.
+
+### Подключение других .launch файлов &lt;include&gt;
+
+В реальных проектах, запускаются десятки нод. Конфигурировать каждую из них в одном файле, не всегда удобно. К тому-же обычно сторонние пакеты уже содержат подходящие `.launch` файлы. Поэтому существуют механизи `include`, который позволяет подключать другие файлы запуска, а также конфигурировать их.
+
+Приведем пример ниже
+
+```markup
+<launch>
+ <include file="$(find test_package)/launch/test_params.launch">
+     <arg name="device" value="/dev/ttyS1"/>
+  </include>
+  <include file="$(find navibro)/camera/camerav1_640x480.launch"/>
+  <include file="$(find navibro)/launch/aruco_detect.launch"/>
+  <include file="$(find navibro)/launch/fiducial_slam.launch"/>
+</launch>
+```
+
+В этом примере, мы подключаем файл `test_params.launch` , который находиться в нешем пакете, и настраивая его на работу через устройство `/dev/ttyS1.` А также подключаем три других файла из другого пакета.
+
+### Использование условий if и unless
+
+При написании сложный .launch файлов, очень помагают атрибуты `if` и `unless`, которые позволяют формировать простые алгоритмы ветвления при работе с `roslaunch`
+
+Приведем несколько примеров
+
+```markup
+<launch>
+   <arg name="have_serial" value="true"/>
+   
+   <group if="$(arg have_serial)">
+     <!-- Блок выполниться только если have_serial установленно в true -->
+     <node pkg="test_package" type="test_params.py" name="test_package" output="log" respawn="true">
+  </group>
+  <!-- Также if можно использовать для одного тега-->
+  <include if="$(arg have_serial)" file="$(find test_package)/launch/test_params.launch">
+    <arg name="device" value="/dev/ttyS1"/>
+  </include>
+</launch>
+```
+
+Атрибут `unless` работает противоположно атрибуту `if`. Если значение `0` то блок выполняется.
+
+Значение атрибутов для `if` и `unless` должно быть булевым \(`0,1,true,false`\)
 
