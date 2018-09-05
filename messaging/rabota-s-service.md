@@ -4,13 +4,13 @@
 
 ![](../.gitbook/assets/ros_service%20%281%29.png)
 
-Данный способ удобно использовать для периодической передаче данных, или когда существует потребность в синхронной связи \(режим запрос-ответ\).
+Данный способ удобно использовать для периодической передачи данных, или когда существует потребность в синхронной связи \(режим запрос-ответ\).
 
-Сервер отвечает только тогда, когда есть запрос \(Service Request\) и клиент, который может получать ответы \(Service Response\). В отличие от работы с топиками, модель сервис работает с "одноразовыми" соединениями. Поэтому, когда цикл запрос и ответ завершен, соединение между двумя нодами будет отключено.
+Сервер отвечает только тогда, когда есть запрос \(Service Request\) и клиент, который может получить ответ \(Service Response\). В отличие от модели работы с топиками, модель сервис работает с "одноразовыми" соединениями. Поэтому, когда цикл запрос и ответ завершен, соединение между двумя нодами будет прервано.
 
-Файл описания сервиса
+### Описания формата сервиса
 
-Формат запроса и ответа, задаеться специальным парным Сообщением, в котором есть два сообщения, первое для запроса, второе для ответа. Файлы с такими сообщениями обычно храняться в диретокрии пакета `srv` и имеют расширение `.srv` Подробное описание файла доступно на странице wiki [http://wiki.ros.org/rosbuild/srv](http://wiki.ros.org/rosbuild/srv)
+Формат запроса и ответа, задается специальным парным Сообщением \(Message\), в котором есть два сообщения, первое для запроса \(Service Request\), второе для ответа \(Service Response\). Файлы с описание сервисов хранятся в директории `srv` и имеют расширение `.srv` Подробное описание файла доступно на странице wiki [http://wiki.ros.org/rosbuild/srv](http://wiki.ros.org/rosbuild/srv)
 
 В файле описания сервиса, первая часть \(до разделителя ---\) это описание сообщения запроса, далее описание сообщения ответа.
 
@@ -23,11 +23,11 @@ uint32 x
 uint32 sum
 ```
 
-При этом, имя файла, определит тип Сервиса `AddToInts.srv` означает тип сервиса AddToInt.
+При этом, имя файла `AddToInts.srv`, соответсвует имени Сервиса AddToInts.
 
 ### Примеры работы на Python
 
-При использовании python на осонове файлов `srv`, создаются \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
+При использовании python на основании данных из файла `srv`, создаются \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
 
 ```text
 my_package/srv/AddToInts.srv → my_package.srv.AddToInts
@@ -37,14 +37,14 @@ my_package/srv/AddToInts.srv → my_package.srv.AddToIntsResponse
 
 Более подробно про работу и настройку  файлов .srv можно посмотреть в wiki [http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv\#Creating\_a\_srv](http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv#Creating_a_srv)
 
-Для создания сервера необходимо использовать класс `rospy.Service`
+Для создания сервера, выполняющего обработку запросов, используем класс `rospy.Service`
 
 ```python
 rospy.Service(name, service_class, handler)
 ```
 
-* `name` Название сервиса \(его путь\)
-* `service_class` тип обрабатываеммых сообщений \(должно совпадать с именем файлы `.srv`\)
+* `name` Название сервиса \(его адрес\)
+* `service_class` тип обрабатываемых сообщений \(должно совпадать с именем файлы `.srv`\)
 * `handler` функция обработчик запроса
 
 Пример сервера `src/add_two_ints_server.py`
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
 ```
 
-При запросе сервиса по URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух числе.
+При создании запроса на URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух числе.
 
 Пример клиента `src/add_two_ints_client.py`
 
@@ -99,14 +99,14 @@ if __name__ == "__main__":
     print add_two_ints_client(10, 22)
 ```
 
-Запуск примеров возможен или через прямой запуск скриптов python 
+Запуск примеров возможен или через прямой запуск скриптов python
 
 ```text
 python src/ros_book_samples/src/add_two_ints_server.py
 python src/ros_book_samples/src/add_two_ints_client.py
 ```
 
-или через запук `rosrun` для этого .py файли должны быть с флагом исполнения \(`chmode 777`\)
+или через запуск утилитой `rosrun`. Для этого `.py` файл должны быть с флагом исполнения \(`chmode 777`\)
 
 ```bash
 rosrun ros_book_samples add_two_ints_server.py
@@ -135,7 +135,7 @@ rosrun ros_book_samples add_two_ints_client.py
 # Проверяем что пакет message_generation подключен
 find_package(catkin REQUIRED
     COMPONENTS message_generation)
- 
+
 # Declare the service files to be built
 add_service_files(FILES
     AddTwoInts.srv
@@ -143,7 +143,7 @@ add_service_files(FILES
 
 # Actually generate the language-specific message and service files
 generate_messages(DEPENDENCIES std_msgs sensor_msgs)
-  
+
 # Declare that this catkin package's runtime dependencies
 catkin_package(
     CATKIN_DEPENDS message_runtime std_msgs
@@ -198,7 +198,7 @@ rosservice list
 #### rosservice type {#rosservice_type}
 
 ```text
-rosservice type /service_name 
+rosservice type /service_name
 ```
 
 Выводит тип обрабатываемого сообщения.
@@ -214,4 +214,3 @@ int64 sum
 ```
 
 Пример выводит описание типа сообщения для сервиса
-
