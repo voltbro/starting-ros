@@ -159,7 +159,7 @@ rosservice call Выполнение запроса к серверу
 rosservice find Поиск сервиса по типу
 rosservice info Выводит информацию о сервисе
 rosservice list Выводит список запущенных сервисов
-rosservice type Выводит тип сообщений используеммый сервис
+rosservice type Выводит тип сообщений используемый сервисом
 rosservice uri  Выводит RPC URL сервиса
 ```
 

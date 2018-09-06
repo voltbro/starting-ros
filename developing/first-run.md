@@ -15,7 +15,7 @@ from std_msgs.msg import String
 
 pub = rospy.Publisher('hello', String, queue_size=10)
 rospy.init_node('hello_topic_publisher')
-rospy.loginfo("I`am first step PUB node")
+rospy.loginfo("Hello from PUB node")
 r = rospy.Rate(10) # 10hz
 
 while not rospy.is_shutdown():
@@ -25,12 +25,12 @@ while not rospy.is_shutdown():
 
 При использовании `python` у нас есть возможность запустить выполнение программы несколькими способами.
 
-Непосредственно вызов `python` скрипта
+Непосредственный запуск `python` скрипта
 
 ```bash
 $ python src/topic_publisher.py
 
-[INFO] [1534941383.313599]: I`am PUB node
+[INFO] [1534941383.313599]: Hello from PUB node
 ```
 
 Изменение атрибутов файла и запуск исполняемого файлы
@@ -39,7 +39,7 @@ $ python src/topic_publisher.py
 $ chmod a+x src/topic_publisher.py
 $ ./src/topic_publisher.py
 
-[INFO] [1534941755.372466]: I`am PUB node
+[INFO] [1534941755.372466]: Hello from PUB node
 ```
 
 Использование консольной утилиты `rosrun`
@@ -48,10 +48,10 @@ $ ./src/topic_publisher.py
 $ chmod a+x src/topic_publisher.py
 $ rosrun test_package topic_publisher.py
 
-[INFO] [1534941755.372466]: I`am PUB node
+[INFO] [1534941755.372466]: Hello from PUB node
 ```
 
-При использовании  `rosrun` утилита самостоятельно найдет директорию проекта и исполняемый файл, указывать абсолютный путь к файлу не обязательно.
+При использовании `rosrun` утилита самостоятельно найдет директорию проекта и исполняемый файл, указывать абсолютный путь к файлу не обязательно.
 
 Для остановки программы \(выхода из программы\) необходимо нажать Ctrl-C \(Shift-Ctrl-C\)
 
@@ -73,7 +73,7 @@ void msgCallback(const std_msgs::StringConstPtr& msg)
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "topic_subscriber_node");
-  ROS_INFO("I`am SUB node");
+  ROS_INFO("Hello from SUB node");
   ros::NodeHandle nh;
   ros::Subscriber ros_tutorial_sub = nh.subscribe("hello", 100, msgCallback);
   ros::spin();
@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 
 ```
 
-Для того, чтобы исходный код на `C` превратился в испольняемую программу, его необходимо скомпилировать.
+Для того, чтобы исходный код на `C` превратился в исполняемую программу, его необходимо скомпилировать.
 
 Для этого необходимо внести изменения в файл `CMakeLists.txt`, для того чтобы сборщик `catkin_make` правильно его скомпилировал.
 
@@ -117,12 +117,12 @@ $ catkin_make
 [100%] Built target topic_subscriber
 ```
 
-Для запуска программы, необходомо воспользоваться утилитой `rosrun`
+Для запуска программы, необходимо воспользоваться утилитой `rosrun`
 
 ```bash
 $ rosrun test_package topic_subscriber
 
-[ INFO] [1534958887.906387605]: I`am SUB node
+[ INFO] [1534958887.906387605]: Hello from SUB node
 ```
 
 Для остановки программы \(выхода из программы\) необходимо нажать Ctrl-C \(Shift-Ctrl-C\)
@@ -144,5 +144,4 @@ $ rosrun test_package topic_subscriber
 [ INFO] [1534958910.420066932]: recieve msg = Hello World
 ```
 
-В этой главе мы написали и запустили простые программы на разных языках, которые обмениваються данными.
-
+В этой главе мы написали и запустили простые программы на разных языках, которые смогли обмениваться данными благодаря единому API ROS.
