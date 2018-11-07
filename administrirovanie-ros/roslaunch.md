@@ -52,7 +52,6 @@ process[topic_publisher1-1]: started with pid [24963]
 process[topic_subscriber1-2]: started with pid [24964]
 process[topic_publisher2-3]: started with pid [24965]
 process[topic_subscriber2-4]: started with pid [24978]
-
 ```
 
 Если добавить параметр `--screen`, информация о работе запущенных программ будет отображенна на экране текущего терминала.
@@ -75,7 +74,7 @@ $ rosnode list
 /topic_subscriber2
 ```
 
-### Обьединение процессов в группы
+## Обьединение процессов в группы
 
 Если мы посмотрим на список топиков
 
@@ -83,7 +82,8 @@ $ rosnode list
 $ rostopic list
 
 /hello
-/rosout
+
+/rosout
 /rosout_agg
 ```
 
@@ -115,9 +115,12 @@ $ roslaunch test_package demo1.launch
 ```text
 $ rostopic list
 /ns1/hello
-/ns2/hello
-/rosout
-/rosout_agg
+
+/ns2/hello
+
+/rosout
+
+/rosout_agg
 ```
 
 Мы видим, что создано два отдельных топика, с которым работает один Издатель и один Подписчик.
@@ -125,18 +128,32 @@ $ rostopic list
 ```bash
 $ rostopic info /ns1/hello
 
-Type: std_msgs/String
-Publishers: * /ns1/topic_publisher (http://cola:44225/)
-Subscribers: * /ns1/topic_subscriber (http://cola:44043/)
+
+Type: std_msgs/String
+
+Publishers:
+ * /ns1/topic_publisher (http://cola:44225/)
+
+
+Subscribers:
+ * /ns1/topic_subscriber (http://cola:44043/)
+
+
 
 $ rostopic info /ns2/hello
 
 Type: std_msgs/String
-Publishers: * /ns2/topic_publisher (http://cola:45259/)
-Subscribers: * /ns2/topic_subscriber (http://cola:35017/)
+
+
+Publishers:
+ * /ns2/topic_publisher (http://cola:45259/)
+
+
+Subscribers:
+ * /ns2/topic_subscriber (http://cola:35017/)
 ```
 
-### Установка переменных окружения при запуске
+## Установка переменных окружения при запуске
 
 Очень часто, возникает необходимость конфигурировать исполняемые файлы в момент их запуска. Например нужно иметь возможность изменять скорость `Serial` порта и его адрес. Каждый раз менять эти переменные в коде не удобно и очень долго.
 
@@ -151,7 +168,6 @@ Type: std_msgs/String
         <param name="boud" value="57600"/>
     </node>
 </launch>
-
 ```
 
 Мы видим что в ветке `node` добавились элементы `param` с настройками. Открывая такой файл, сразу видно, какие параметры возможно конфигурировать и их значения по умолчанию.
@@ -197,7 +213,7 @@ rosrun test_package test_params.py _port:=/dev/ttyS1
 
 Эта практика позволяет не листать большие файлы и всегда иметь перед глазами самые важные настройки.
 
-### Подключение других .launch файлов &lt;include&gt;
+## Подключение других .launch файлов &lt;include&gt;
 
 В реальных проектах, запускаются десятки нод. Конфигурировать каждую из них в одном файле, не всегда удобно. К тому-же обычно сторонние пакеты уже содержат подходящие `.launch` файлы. Поэтому существуют механизм `include`, который позволяет подключать другие файлы запуска.
 
@@ -216,7 +232,7 @@ rosrun test_package test_params.py _port:=/dev/ttyS1
 
 В этом примере, мы подключаем файл `test_params.launch` , который находиться в нашем пакете и настраиваем его на работу через устройство `/dev/ttyS1.`. А также подключаем три других `.launch` файла из другого пакета.
 
-### Использование условий if и unless
+## Использование условий if и unless
 
 При написании сложный .launch файлов, очень помагают атрибуты `if` и `unless`, которые позволяют формировать простые алгоритмы ветвления при работе с `roslaunch`
 
@@ -240,3 +256,4 @@ rosrun test_package test_params.py _port:=/dev/ttyS1
 Атрибут `unless` работает противоположно атрибуту `if`. Если значение `0` то блок выполняется.
 
 Значение атрибутов для `if` и `unless` должно быть булевым \(`0,1,true,false`\)
+
