@@ -153,6 +153,15 @@ catkin_package(
 )
 ```
 
+Файл `package.xml`, должен содержать следующие строчки
+
+```text
+<build_depend>message_generation</build_depend>
+<build_depend>message_runtime</build_depend>
+<exec_depend>message_generation</exec_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+
 ## Консольная утилита rosservice
 
 Для отладки и тестирования сервисов ROS существует специальная консольная утилита `rosservice`
