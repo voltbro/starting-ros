@@ -8,7 +8,7 @@
 
 Сервер отвечает только тогда, когда есть запрос \(Service Request\) и клиент, который может получить ответ \(Service Response\). В отличие от модели работы с топиками, модель сервис работает с "одноразовыми" соединениями. Поэтому, когда цикл запрос и ответ завершен, соединение между двумя нодами будет прервано.
 
-### Описания формата сервиса
+## Описания формата сервиса
 
 Формат запроса и ответа, задается специальным парным Сообщением \(Message\), в котором есть два сообщения, первое для запроса \(Service Request\), второе для ответа \(Service Response\). Файлы с описание сервисов хранятся в директории `srv` и имеют расширение `.srv` Подробное описание файла доступно на странице wiki [http://wiki.ros.org/rosbuild/srv](http://wiki.ros.org/rosbuild/srv)
 
@@ -18,14 +18,17 @@
 
 ```text
 uint32 x
-uint32 y
----
-uint32 sum
+
+uint32 y
+
+---
+
+uint32 sum
 ```
 
 При этом, имя файла `AddToInts.srv`, соответсвует имени Сервиса AddToInts.
 
-### Примеры работы на Python
+## Примеры работы на Python
 
 При использовании python на основании данных из файла `srv`, создаются \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
 
@@ -35,7 +38,7 @@ my_package/srv/AddToInts.srv → my_package.srv.AddToIntsRequest
 my_package/srv/AddToInts.srv → my_package.srv.AddToIntsResponse
 ```
 
-Более подробно про работу и настройку  файлов .srv можно посмотреть в wiki [http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv\#Creating\_a\_srv](http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv#Creating_a_srv)
+Более подробно про работу и настройку файлов .srv можно посмотреть в wiki [http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv\#Creating\_a\_srv](http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv#Creating_a_srv)
 
 Для создания сервера, выполняющего обработку запросов, используем класс `rospy.Service`
 
@@ -69,7 +72,6 @@ def add_two_ints_server():
 
 if __name__ == "__main__":
     add_two_ints_server()
-
 ```
 
 При создании запроса на URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух числе.
@@ -118,14 +120,15 @@ rosrun ros_book_samples add_two_ints_client.py
 ```bash
 Для сервера
 Ready to add two ints.
-Returning [10 + 22 = 32]
+
+Returning [10 + 22 = 32]
 
 Для клиента
 rosrun ros_book_samples add_two_ints_client.py
 32
 ```
 
-### Использование Service в новых пакета
+## Использование Service в новых пакета
 
 Для использования `Service` в новых пакетах, необходимо удостовериться что установлены все зависимости и внесены изменения в конфигурацию `make`.
 
@@ -147,10 +150,19 @@ generate_messages(DEPENDENCIES std_msgs sensor_msgs)
 # Declare that this catkin package's runtime dependencies
 catkin_package(
     CATKIN_DEPENDS message_runtime std_msgs
-)     
+)
 ```
 
-### Консольная утилита rosservice
+Файл `package.xml`, должен содержать следующие строчки
+
+```text
+<build_depend>message_generation</build_depend>
+<build_depend>message_runtime</build_depend>
+<exec_depend>message_generation</exec_depend>
+<exec_depend>message_runtime</exec_depend>
+```
+
+## Консольная утилита rosservice
 
 Для отладки и тестирования сервисов ROS существует специальная консольная утилита `rosservice`
 
@@ -165,7 +177,7 @@ rosservice uri  Выводит RPC URL сервиса
 
 Примеры использования `rosservice`
 
-#### rosservice call {#rosservice_call}
+### rosservice call <a id="rosservice_call"></a>
 
 Вызов сервиса `service_name` c аргументами `service-arg`
 
@@ -187,7 +199,7 @@ rosservice call /add_two_ints "{x: 1, y: 2}"
 
 Подробно об использовании YAML [http://wiki.ros.org/ROS/YAMLCommandLine](http://wiki.ros.org/ROS/YAMLCommandLine)
 
-#### rosservice list {#rosservice_list}
+### rosservice list <a id="rosservice_list"></a>
 
 ```text
 rosservice list
@@ -195,7 +207,7 @@ rosservice list
 
 Выводит список активных сервисов
 
-#### rosservice type {#rosservice_type}
+### rosservice type <a id="rosservice_type"></a>
 
 ```text
 rosservice type /service_name
@@ -214,3 +226,4 @@ int64 sum
 ```
 
 Пример выводит описание типа сообщения для сервиса
+
