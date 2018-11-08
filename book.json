@@ -10,5 +10,10 @@
   "pdf":{
     "fontSize": 11
   },
-  "plugins": ["hints"]
+  "plugins": ["hints", "analytics"],
+  "pluginsConfig": {
+    "analytics": {
+            "google": "UA-127136227-3"
+    }
+  }
 }
