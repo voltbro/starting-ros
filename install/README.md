@@ -106,7 +106,7 @@ sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool
 ROS использует специальную систему сборки под названием `catkin`. Чтобы использовать ее, вам необходимо создать и инициализировать папку рабочего пространства.
 
 ```bash
- mkdir ~/catkin_ws/src
+ mkdir -p ~/catkin_ws/src
  cd ~/catkin_ws/src
  catkin_init_workspace
 ```
@@ -130,4 +130,3 @@ roscore
 ```bash
 roscore &
 ```
-
