@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Введение в ROS](README.md)
+* [О книге](README.md)
 * [Что такое ROS](ros-about.md)
 * [Назначение ROS](ros-task.md)
 * [Установка](install/README.md)
