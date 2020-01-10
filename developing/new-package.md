@@ -18,7 +18,7 @@ $ cd test_package
 $ ls
 
 include        
-→ Директория для Header файло языка Сr
+→ Директория для Header файла языка Сpp
 
 src
 
