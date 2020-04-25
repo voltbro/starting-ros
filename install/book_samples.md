@@ -18,7 +18,7 @@ git --version
 
 Исходные кода примеров находятся в открытом доступе в git репозитории [https://github.com/voltbro/ros\_book\_samples](https://github.com/voltbro/ros_book_samples)
 
-Установка пакета должны происходить в директории `~/catkin_ws/src/` Если у вас нет директории catkin\_ws, выполните инструкцию по установки [ROS для разработчиков](./#nastroika-rabochego-okruzheniya)
+Установка пакета должна происходить в директории `~/catkin_ws/src/` Если у вас нет директории catkin\_ws, выполните инструкцию по установки [ROS для разработчиков](./#nastroika-rabochego-okruzheniya)
 
 Скачать примеры:
 
@@ -89,18 +89,16 @@ Install space: /home/cola/catkin_ws/install
 Если вы используете `bash`
 
 ```bash
-echo "source /home/`whoami`/catkin_ws/devel/setup.bash" >> ~/.bashrc
+echo "source ${HOME}/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
 Если `zsh`
 
 ```bash
-echo "source /home/`whoami`/catkin_ws/devel/setup.zsh" >> ~/.zshrc
+echo "source ${HOME}/catkin_ws/devel/setup.zsh" >> ~/.zshrc
 source ~/.zshrc
 ```
-
-Команда `whoami` автоматический подставит в строчку конфигурации имя текущего пользователя в конфигурацию командного интерпретатора.
 
 Для проверки настройки новой директории для пакетов `ROS` можно выполнить команду
 
@@ -126,5 +124,5 @@ echo $ROS_PACKAGE_PATH
 /home/user/catkin_ws/src:/opt/ros/melodic/share
 ```
 
-Мы скачали, скомпилировали и настроили проект, содержащий примеры. Для установки нового пакета, достаточно скачать пакет в директорию `~/catkin_ws/src/` и запустить `catkin_make`
+Мы скачали, скомпилировали и настроили проект, содержащий примеры. Для установки нового пакета достаточно скачать пакет в директорию `~/catkin_ws/src/` и запустить `catkin_make`
 
