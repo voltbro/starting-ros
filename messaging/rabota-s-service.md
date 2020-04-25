@@ -10,9 +10,9 @@
 
 ## Описания формата сервиса
 
-Формат запроса и ответа, задается специальным парным Сообщением \(Message\), в котором есть два сообщения, первое для запроса \(Service Request\), второе для ответа \(Service Response\). Файлы с описание сервисов хранятся в директории `srv` и имеют расширение `.srv` Подробное описание файла доступно на странице wiki [http://wiki.ros.org/rosbuild/srv](http://wiki.ros.org/rosbuild/srv)
+Формат запроса и ответа, задается специальным парным Сообщением \(Message\), в котором есть два сообщения: первое для запроса \(Service Request\), второе для ответа \(Service Response\). Файлы с описание сервисов хранятся в директории `srv` и имеют расширение `.srv` Подробное описание файла доступно на странице wiki [http://wiki.ros.org/rosbuild/srv](http://wiki.ros.org/rosbuild/srv)
 
-В файле описания сервиса, первая часть \(до разделителя ---\) это описание сообщения запроса, далее описание сообщения ответа.
+В файле описания сервиса первая часть \(до разделителя ---\) это описание сообщения запроса, далее описание сообщения ответа.
 
 Например `srv/AddToInts.srv`
 
@@ -26,11 +26,11 @@ uint32 y
 uint32 sum
 ```
 
-При этом, имя файла `AddToInts.srv`, соответсвует имени Сервиса AddToInts.
+При этом, имя файла `AddToInts.srv` соответсвует имени Сервиса AddToInts.
 
 ## Примеры работы на Python
 
-При использовании python на основании данных из файла `srv`, создаются \(при билде пакета\) дополнительные python файлы содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
+При использовании python на основании данных из файла `srv` создаются \(при билде пакета\) дополнительные python файлы, содержащие описание типа сервиса, сообщение для запроса и сообщение для ответа.
 
 ```text
 my_package/srv/AddToInts.srv → my_package.srv.AddToInts
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     add_two_ints_server()
 ```
 
-При создании запроса на URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух числе.
+При создании запроса на URL `/add_two_ints`, с типом `AddTwoIntsRequest` произойдет суммирование двух чисел.
 
 Пример клиента `src/add_two_ints_client.py`
 
@@ -108,14 +108,14 @@ python src/ros_book_samples/src/add_two_ints_server.py
 python src/ros_book_samples/src/add_two_ints_client.py
 ```
 
-или через запуск утилитой `rosrun`. Для этого `.py` файл должны быть с флагом исполнения \(`chmode 777`\)
+или через запуск утилитой `rosrun`. Для этого `.py` файл должны быть с флагом исполнения \(`chmod +x`\)
 
 ```bash
 rosrun ros_book_samples add_two_ints_server.py
 rosrun ros_book_samples add_two_ints_client.py
 ```
 
-При запуске клиента и сервера, в консоле можно увидеть
+При запуске клиента и сервера в консоле можно увидеть
 
 ```bash
 Для сервера
@@ -130,12 +130,12 @@ rosrun ros_book_samples add_two_ints_client.py
 
 ## Использование Service в новых пакета
 
-Для использования `Service` в новых пакетах, необходимо удостовериться что установлены все зависимости и внесены изменения в конфигурацию `make`.
+Для использования `Service` в новых пакетах необходимо удостовериться, что установлены все зависимости и внесены изменения в конфигурацию `make`.
 
 В файле `CMakeLists.txt` необходимо внести изменения
 
 ```text
-# Проверяем что пакет message_generation подключен
+# Проверяем, что пакет message_generation подключен
 find_package(catkin REQUIRED
     COMPONENTS message_generation)
 
@@ -153,7 +153,7 @@ catkin_package(
 )
 ```
 
-Файл `package.xml`, должен содержать следующие строчки
+Файл `package.xml` должен содержать следующие строчки
 
 ```text
 <build_depend>message_generation</build_depend>
@@ -179,19 +179,19 @@ rosservice uri  Выводит RPC URL сервиса
 
 ### rosservice call <a id="rosservice_call"></a>
 
-Вызов сервиса `service_name` c аргументами `service-arg`
+Вызов сервиса `service_name` c аргументами `service-args`
 
 ```bash
 rosservice call /service_name service-args
 ```
 
-Вызов сервиса `add_two_ints` из примеры выше, с аргументами 1 и 2
+Вызов сервиса `add_two_ints` с аргументами 1 и 2
 
 ```bash
 rosservice call /add_two_ints 1 2
 ```
 
-Для сложных сообщений, аргументы с параметрами возможно писать в YAML синтаксисе например
+Для сложных сообщений аргументы с параметрами возможно писать в YAML синтаксисе, например
 
 ```bash
 rosservice call /add_two_ints "{x: 1, y: 2}"
