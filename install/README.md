@@ -2,7 +2,7 @@
 
 Поскольку ROS - это мета-операционная система, вам необходимо выбрать ОС для использования. ROS поддерживает Debian, Ubuntu, Linux Mint, OS X, Fedora, Gentoo, openSUSE, Arch Linux и Windows \(через виртуализацию Linux\), но самыми популярными операционными системами являются Debian, Ubuntu и Linux Mint. В нашем учебнике мы будем использовать ОС Ubuntu. Для слабых компьютеров, рекомендуем использовать ОС Lubuntu \(совместима с Ubuntu\)
 
-На сегодняшний день, актуальным дистрибутивом ROS является **ROS Melodic Morenia** [http://wiki.ros.org/melodic](http://wiki.ros.org/melodic) этот дистрибутив мы и установим.
+На сегодняшний день, актуальным дистрибутивом ROS является **ROS Noetic Ninjemys** [http://wiki.ros.org/noetic](http://wiki.ros.org/noetic) этот дистрибутив мы и установим.
 
 Оригинальная инструкция по установке ROS находится на сайте ROS [https://www.ros.org/install/](https://www.ros.org/install/). За основу дальнейшей инструкции будет взята страница [http://wiki.ros.org/melodic/Installation/Ubuntu](http://wiki.ros.org/melodic/Installation/Ubuntu).
 
