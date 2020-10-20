@@ -41,7 +41,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 На этапе знакомства с ROS, проще всего установить самую полную версию системы. Данный пакет автоматический установит все основные пакеты ROS, rqt, rviz, библиотеки 2D/3D симуляции, навигации и тп.
 
 ```bash
-sudo apt-get install ros-melodic-desktop-full
+sudo apt install ros-noetic-desktop-full
 ```
 
 #### Установка дополнительных пакетов
@@ -49,13 +49,13 @@ sudo apt-get install ros-melodic-desktop-full
 Если необходимо установить дополнительный пакет, то это можно сделать обычной утилитой установщиком `apt-get`. Например добавить пакет slam-gmapping можно командой.
 
 ```bash
-sudo apt-get install ros-melodic-slam-gmapping
+sudo apt install ros-noetic-slam-gmapping
 ```
 
 Поиск пакетов выполняется командой
 
 ```bash
-apt-cache search ros-melodic
+apt search ros-noetic
 ```
 
 ## Настройка после установки
@@ -76,7 +76,7 @@ rosdep update
 Добавим переменные окружения ROS, для их автоматической установки при запуске bash:
 
 ```bash
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -89,7 +89,7 @@ source /opt/ros/melodic/setup.bash
 Если вы используете zsh вместо bash, то необходимо выполнить команду.
 
 ```bash
-echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
+echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
 source ~/.zshrc
 ```
 
