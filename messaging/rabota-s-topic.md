@@ -48,9 +48,9 @@ while not rospy.is_shutdown():
 
 ### Прием сообщений
 
-Для приема сообщениями необходимо воспользоваться **rospy.Subscriber Code API** [http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html](http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html)
+Для приема сообщения необходимо воспользоваться **rospy.Subscriber Code API** [http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html](http://docs.ros.org/api/rospy/html/rospy.topics.Subscriber-class.html)
 
-Пример реализации подписчика \(subscriber\) `src/hello_topic_subscriber.py`
+Пример реализации Подписчика \(Subscriber\) `src/hello_topic_subscriber.py`
 
 ```python
 #!/usr/bin/env python
@@ -93,13 +93,13 @@ rostopic type   Показать тип сообщения для топика
 
 ### Примеры использования
 
-Вывести список существующий топиков
+Вывести список существующих топиков:
 
 ```text
 rostopic list
 ```
 
-Вывести сообщения из топика `topic_name`
+Вывести сообщения из топика `topic_name`:
 
 ```text
 rostopic echo /topic_name
@@ -107,19 +107,19 @@ rostopic echo /topic_name
 
 ### rostopic pub <a id="rostopic_pub"></a>
 
-Отправить текстовое сообщение в топик
+Отправить текстовое сообщение в топик:
 
 ```text
 rostopic pub my_topic std_msgs/String "hello there"
 ```
 
-Отправить сообщение типа `geometry_msgs/Twist`в топик /cmd\_vel с частотой 10hz
+Отправить сообщение типа `geometry_msgs/Twist`в топик /cmd\_vel с частотой 10hz:
 
 ```text
 rostopic pub -r 10 /cmd_vel geometry_msgs/Twist  '{linear:  {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0,y: 0.0,z: 0.0}}'
 ```
 
-Удобно при вызове функций использовать `Tab` для поиска и подстановки необходимых данных в командную строчку.
+Удобно при вызове функций использовать `Tab` для поиска и подстановки необходимых данных в командную строку.
 
 Например
 
